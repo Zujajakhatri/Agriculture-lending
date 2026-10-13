@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard Insights · Agricultural Lending in Pakistan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #000000;
+    --ink-2: #1f1f1f;
+    --mid: #6b6b6b;
+    --line: #e2e2e2;
+    --panel: #f5f5f5;
+    --paper: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink-2);
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 22px 48px; }
+
+  /* Logo bar */
+  .topbar { padding: 18px 0 4px; }
+  .topbar img { width: 140px; height: auto; display: block; }
+
+  /* Masthead */
+  .mast {
+    background: var(--ink);
+    color: #fff;
+    border-radius: 10px;
+    padding: 24px 28px;
+    margin: 18px 0 8px;
+  }
+  .mast h1 { margin: 0; font-size: 28px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; }
+  .mast p { margin: 6px 0 0; color: #bdbdbd; font-size: 13.5px; }
+
+
+  /* Sections */
+  section { scroll-margin-top: 12px; }
+  h2 {
+    font-size: 20px; font-weight: 700; color: var(--ink); letter-spacing: -0.01em;
+    margin: 34px 0 12px; padding-bottom: 8px; border-bottom: 2px solid var(--ink);
+    display: flex; gap: 10px; align-items: baseline;
+  }
+  h2 .num {
+    background: var(--ink); color: #fff; font-size: 13px; font-weight: 600;
+    border-radius: 4px; padding: 1px 8px;
+  }
+  h3 { font-size: 16px; font-weight: 600; color: var(--ink); margin: 22px 0 6px; }
+  p { margin: 0 0 12px; }
+  b, strong { color: var(--ink); font-weight: 600; }
+
+  ul.points { margin: 4px 0 14px; padding-left: 20px; }
+  ul.points li { margin-bottom: 6px; }
+
+  /* Callouts */
+  .callout {
+    border-left: 3px solid var(--ink); background: #f7f7f7;
+    padding: 12px 16px; border-radius: 0 6px 6px 0; margin: 14px 0;
+  }
+  .callout p:last-child, .callout ul:last-child { margin-bottom: 0; }
+  .note {
+    font-size: 13px; color: var(--mid); background: #f7f7f7; border: 1px solid var(--line);
+    border-radius: 6px; padding: 10px 14px; margin: 12px 0;
+  }
+  .note b { color: var(--ink); }
+
+  /* KPI strip */
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin: 14px 0 18px; }
+  .kpi {
+    border: 1px solid var(--line); border-top: 3px solid var(--ink); border-radius: 4px 4px 8px 8px;
+    padding: 12px 14px; background: #fff;
+  }
+  .kpi.dark { background: var(--ink); border-color: var(--ink); }
+  .kpi .l { font-size: 12px; color: var(--mid); font-weight: 500; }
+  .kpi .v { font-size: 24px; font-weight: 600; color: var(--ink); letter-spacing: -0.02em; margin-top: 4px;
+            font-variant-numeric: tabular-nums; }
+  .kpi.dark .l { color: #bdbdbd; }
+  .kpi.dark .v { color: #fff; }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin: 10px 0 16px; border: 1px solid var(--line); border-radius: 6px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+  th {
+    background: var(--ink); color: #fff; font-weight: 600; text-align: left;
+    padding: 9px 12px; white-space: nowrap;
+  }
+  td { padding: 8px 12px; border-bottom: 1px solid var(--line); }
+  tr:nth-child(even) td { background: #f7f7f7; }
+  tr:last-child td { border-bottom: none; }
+  td.r, th.r { text-align: right; }
+
+  /* Product cards */
+  .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin: 12px 0; }
+  .product {
+    border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; background: #fff;
+  }
+  .product .n {
+    display: inline-block; background: var(--ink); color: #fff; font-size: 12px; font-weight: 600;
+    border-radius: 4px; padding: 1px 7px; margin-bottom: 6px;
+  }
+  .product h4 { margin: 0 0 4px; font-size: 15px; font-weight: 600; color: var(--ink); }
+  .product p { margin: 0; font-size: 14px; color: #333; }
+
+  footer {
+    margin-top: 36px; padding-top: 12px; border-top: 1px solid var(--line);
+    font-size: 12px; color: #8a8a8a;
+  }
+
+  .prepared { margin-top: 6px; font-size: 13px; color: var(--ink-2); font-weight: 500; }
+
+  @media (max-width: 640px) {
+    html, body { font-size: 14px; }
+    .mast { padding: 20px; }
+    .mast h1 { font-size: 22px; }
+    h2 { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar"><img src="FT-Logo NEW.png" alt="Future Technologies"></div>
+
+  <div class="mast">
+    <h1>Dashboard Insights</h1>
+    <p>Agricultural lending in Pakistan · market size, lenders, demand and the Digital Retail Bank opportunity</p>
+  </div>
+
+
+  <!-- 1. MARKET SIZE -->
+  <section id="market">
+    <h2><span class="num">1</span> How large is Pakistan's agriculture financing market?</h2>
+
+    <div class="kpis">
+      <div class="kpi dark"><div class="l">Disbursement FY2025</div><div class="v">PKR 2,543 Bn</div></div>
+      <div class="kpi"><div class="l">Disbursement FY2020</div><div class="v">PKR 1,184 Bn</div></div>
+      <div class="kpi"><div class="l">CAGR 2020–2025</div><div class="v">16.5%</div></div>
+      <div class="kpi"><div class="l">Agri share of advances 2025</div><div class="v">7.03%</div></div>
+    </div>
+
+    <p>Agricultural credit disbursement by the 39 banks in our dataset more than doubled, from <b>PKR 1,183.8 billion in 2020 to PKR 2,542.6 billion in 2025</b>, a compound annual growth rate (CAGR) of <b>16.5%</b>. The market grew every year:</p>
+
+    <div class="table-wrap">
+      <table>
+        <tr><th>Year</th><th class="r">2020</th><th class="r">2021</th><th class="r">2022</th><th class="r">2023</th><th class="r">2024</th><th class="r">2025</th></tr>
+        <tr><td>Disbursement (PKR Bn)</td><td class="r">1,183.8</td><td class="r">1,340.7</td><td class="r">1,390.8</td><td class="r">1,743.5</td><td class="r">2,184.7</td><td class="r">2,542.6</td></tr>
+        <tr><td>Growth</td><td class="r">—</td><td class="r">13.3%</td><td class="r">3.7%</td><td class="r"><b>25.4%</b></td><td class="r"><b>25.3%</b></td><td class="r">16.4%</td></tr>
+      </table>
+    </div>
+    <p>Growth slowed sharply in 2022 (3.7%), then accelerated to around <b>25% a year in 2023 and 2024</b>, before moderating to 16.4% in 2025.</p>
+
+    <h3>HBL's role</h3>
+    <p>Habib Bank Limited (HBL) is the market's largest agricultural lender, disbursing <b>PKR 455.6 billion in 2025</b>, a <b>17.9% market share</b>. Its lending grew every year, from PKR 186.2 billion in 2020 (a CAGR of about 19.6%), with the biggest jump in 2025 (+34%).</p>
+
+    <h3>Disbursement vs outstanding loans</h3>
+    <p>Outstanding agricultural loans (gross advances) grew from <b>PKR 669 billion to PKR 1,328 billion</b> (CAGR 14.7%), slightly slower than disbursement. In 2024, gross advances <b>fell 6.1%</b> while disbursement rose 25.3%. Agriculture's share of total bank advances moved from <b>7.45% in 2020 to 7.03% in 2025</b>, with a low of 5.78% in 2024, while total advances grew at 16.0% a year.</p>
+    <div class="callout">
+      <p>Agricultural disbursement is growing at roughly the same pace as overall bank lending, so agriculture is not gaining a larger place on bank balance sheets. Most agri lending is short-term seasonal credit that is repaid within the year.</p>
+    </div>
+
+    <div class="note"><b>Note:</b> Disbursement figures are from the State Bank of Pakistan on a fiscal-year basis (e.g. 2025 = July 2024–June 2025). All figures are nominal; Pakistan experienced high inflation during 2022–2024, so real growth is lower than these figures suggest.</div>
+  </section>
+
+  <!-- 2. WHO SERVES IT -->
+  <section id="serving">
+    <h2><span class="num">2</span> Who is currently serving the market?</h2>
+
+    <div class="kpis">
+      <div class="kpi dark"><div class="l">Commercial banks' share 2025</div><div class="v">78.5%</div></div>
+      <div class="kpi"><div class="l">Top 5 lenders' share</div><div class="v">56.7%</div></div>
+      <div class="kpi"><div class="l">HHI (concentration)</div><div class="v">870</div></div>
+      <div class="kpi"><div class="l">Digital banks' share</div><div class="v">0.05%</div></div>
+    </div>
+
+    <p><b>Conventional and Islamic commercial banks dominate</b>, providing <b>78.5%</b> of agricultural disbursement in 2025, broadly stable since 2020 (76.5%). The market is not highly concentrated: the Herfindahl-Hirschman Index (HHI) is about <b>870</b>, below the 1,500 threshold for moderate concentration. Still, the top 5 lenders hold 56.7% and the top 10 hold 77.3% of disbursement.</p>
+
+    <h3>Top lenders, 2025</h3>
+    <div class="table-wrap">
+      <table>
+        <tr><th class="r">Rank</th><th>Bank</th><th class="r">Disbursement (PKR Bn)</th><th class="r">Market share</th></tr>
+        <tr><td class="r">1</td><td>Habib Bank Limited (HBL)</td><td class="r">455.6</td><td class="r">17.9%</td></tr>
+        <tr><td class="r">2</td><td>National Bank of Pakistan (NBP)</td><td class="r">374.2</td><td class="r">14.7%</td></tr>
+        <tr><td class="r">3</td><td>United Bank Limited (UBL)</td><td class="r">255.6</td><td class="r">10.1%</td></tr>
+        <tr><td class="r">4</td><td>MCB Bank Limited</td><td class="r">216.3</td><td class="r">8.5%</td></tr>
+        <tr><td class="r">5</td><td>Allied Bank Limited (ABL)</td><td class="r">140.9</td><td class="r">5.5%</td></tr>
+      </table>
+    </div>
+    <p>Leadership has alternated between HBL and NBP: NBP was the largest lender in 2020, 2021 and 2024, and HBL in 2022, 2023 and 2025.</p>
+
+    <h3>Share by bank type</h3>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Bank type</th><th class="r">Share 2020</th><th class="r">Share 2025</th><th class="r">CAGR 2020–2025</th></tr>
+        <tr><td>Conventional + Islamic Banking</td><td class="r">76.5%</td><td class="r">78.5%</td><td class="r">17.1%</td></tr>
+        <tr><td>Microfinance Bank</td><td class="r">11.5%</td><td class="r">9.9%</td><td class="r">13.1%</td></tr>
+        <tr><td>Full Islamic</td><td class="r">5.7%</td><td class="r">8.2%</td><td class="r"><b>25.0%</b></td></tr>
+        <tr><td>Specialized Bank</td><td class="r">6.0%</td><td class="r">3.4%</td><td class="r">3.8%</td></tr>
+        <tr><td>Digital Bank</td><td class="r">0.27%</td><td class="r">0.05%</td><td class="r">−18.2%</td></tr>
+      </table>
+    </div>
+    <ul class="points">
+      <li><b>Full Islamic banks are the fastest-growing group</b> (CAGR 25.0%), raising their share from 5.7% to 8.2%.</li>
+      <li><b>Microfinance and specialized banks are losing share.</b> Microfinance banks fell from 11.5% to 9.9%, and specialized banks (ZTBL, PPCBL) from 6.0% to 3.4%.</li>
+      <li><b>Digital banks are almost absent</b> from agricultural lending, with only PKR 1.2 billion in 2025. This is the gap a Digital Retail Bank can fill.</li>
+    </ul>
+
+    <h3>Scale versus focus</h3>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Lender type</th><th class="r">Agriculture as % of loan book (2020–25)</th><th>What it means</th></tr>
+        <tr><td>Conventional + Islamic banks</td><td class="r">4.4%</td><td>Large agri lenders because they are large banks, not because agriculture is a priority</td></tr>
+        <tr><td>Microfinance banks</td><td class="r">52.3%</td><td>Small-ticket agricultural lending can sustain a dedicated business model</td></tr>
+      </table>
+    </div>
+    <div class="callout">
+      <p><b>Zarai Taraqiati Bank (ZTBL)</b> shows a different pattern. It accounts for only <b>2.9%</b> of 2025 disbursement but about <b>10.6%</b> of outstanding agricultural advances, which suggests longer-tenor development loans or slower recovery.</p>
+    </div>
+  </section>
+
+  <!-- 3. DEMAND -->
+  <section id="demand">
+    <h2><span class="num">3</span> Where is financing demand concentrated?</h2>
+    <p>Province-wise lending data is not available, so demand is measured through proxies: number of farms, agricultural workforce, cultivated area and crop output.</p>
+
+    <div class="table-wrap">
+      <table>
+        <tr><th>Province</th><th class="r">Share of farms</th><th class="r">Share of agri workers</th><th class="r">Share of cultivated area</th><th class="r">Avg farm size</th><th class="r">Demand Index</th></tr>
+        <tr><td>Punjab</td><td class="r">41.8%</td><td class="r">61.9%</td><td class="r">69.7%</td><td class="r">6.14 acres</td><td class="r">56.4</td></tr>
+        <tr><td>Khyber Pakhtunkhwa</td><td class="r">37.1%</td><td class="r">16.6%</td><td class="r">6.3%</td><td class="r">2.04 acres</td><td class="r">19.0</td></tr>
+        <tr><td>Sindh</td><td class="r">15.7%</td><td class="r">16.8%</td><td class="r">19.6%</td><td class="r">4.80 acres</td><td class="r">19.0</td></tr>
+        <tr><td>Balochistan</td><td class="r">5.5%</td><td class="r">4.6%</td><td class="r">4.4%</td><td class="r">15.68 acres</td><td class="r">5.7</td></tr>
+      </table>
+    </div>
+
+    <ul class="points">
+      <li><b>Punjab is the core of demand.</b> It leads on every indicator and produces 56% of national crop output.</li>
+      <li><b>Khyber Pakhtunkhwa has a distinct profile.</b> It holds 37.1% of the country's farms (4.48 million) on only 6.3% of the cultivated area. These are very small farms that need small loans, a segment that is costly to serve through branches.</li>
+      <li><b>Sindh</b> ties with KP on the Demand Index and dominates <b>fisheries (57% of national output)</b>, a niche that the Risk Coverage Scheme now explicitly covers.</li>
+      <li><b>Balochistan</b> has the highest agricultural share of provincial GDP (25%), but its farm base is small and its farms are large, which limits the scale of the market.</li>
+      <li><b>Crops are highly concentrated:</b> the top 5 crops cover 82.9% of cultivated area. Wheat alone is 47.1%, followed by rice (16.5%) and cotton (9.5%), so crop lending follows the Rabi (wheat) and Kharif (rice, cotton) seasons.</li>
+    </ul>
+
+    <div class="callout">
+      <p>In 2025, average agricultural credit was about <b>PKR 210,400 per farm</b> and <b>PKR 41,600 per cultivated acre</b>.</p>
+    </div>
+  </section>
+
+  <!-- 4. DRB -->
+  <section id="drb">
+    <h2><span class="num">4</span> Where can a Digital Retail Bank participate?</h2>
+    <p>The DRB Opportunity Index scores each province from 0 to 100 using six equally weighted factors: agricultural employees, agriculture's share of GDP, agriculture's share of employment, number of farms, small farm size and cultivated area. Levels: High &ge; 70, Medium 40–70, Low &lt; 40.</p>
+
+    <div class="table-wrap">
+      <table>
+        <tr><th class="r">Rank</th><th>Province</th><th class="r">DRB Opportunity Score (2025)</th><th>Level</th></tr>
+        <tr><td class="r">1</td><td>Punjab</td><td class="r">85.5</td><td>High</td></tr>
+        <tr><td class="r">2</td><td>Khyber Pakhtunkhwa</td><td class="r">67.7</td><td>Medium</td></tr>
+        <tr><td class="r">3</td><td>Sindh</td><td class="r">51.4</td><td>Medium</td></tr>
+        <tr><td class="r">4</td><td>Balochistan</td><td class="r">36.2</td><td>Low</td></tr>
+      </table>
+    </div>
+
+    <p><b>Punjab</b> is the only High-opportunity province and offers the largest market, but it is also the most competitive, with commercial banks, the Bank of Punjab and PPCBL already active. A DRB would need a clear point of difference here, such as speed, a digital journey and input financing through merchants.</p>
+    <p><b>Khyber Pakhtunkhwa is the most natural fit for a digital model.</b> Its large number of very small farms matches the small-ticket, low-cost lending that digital channels do best. Its score of 67.7 is just below the High threshold, and it has been rising since 2020 as the number of farms grew and average farm size fell. Under the Risk Coverage Scheme, farmers of all landholding sizes in KP are eligible for the 10% first-loss cover, which further reduces lending risk there.</p>
+    <p><b>Sindh</b> is a moderate opportunity, with fisheries and crop finance as possible niches. <b>Balochistan</b> is a longer-term option: Risk Coverage Scheme support is broad, but the market is small.</p>
+
+    <div class="callout">
+      <p><b>The small-ticket segment is under-served.</b> Microfinance and digital banks hold only <b>9.9%</b> of disbursement (PKR 252.6 billion) across 11 banks, averaging PKR 23.0 billion per bank, compared with PKR 81.8 billion for the other 28 banks. Their share has fallen from 11.8% in 2020, and they grew more slowly (CAGR 12.7% vs 17.0%), which leaves room for a new digital lender.</p>
+    </div>
+  </section>
+
+  <!-- 5. OPPORTUNITY -->
+  <section id="opportunity">
+    <h2><span class="num">5</span> Opportunity for Digital Banks</h2>
+    <p>Microfinance banks have demonstrated that small-ticket agricultural lending can be commercially viable. Digital retail banks (DRBs) can build on this model while reducing the cost of serving farmers through digital onboarding, satellite-enabled verification, alternative data, and merchant-led disbursement. This can make agricultural financing more scalable, accessible, and cost-efficient, particularly for small and underserved farmers.</p>
+
+    <h3>Highest-potential products</h3>
+    <div class="products">
+      <div class="product">
+        <span class="n">1</span>
+        <h4>Digital Crop Loans</h4>
+        <p>Small-ticket, seasonal financing designed around farmers' crop cycles, with digital application, approval, and repayment.</p>
+      </div>
+      <div class="product">
+        <span class="n">2</span>
+        <h4>Input Financing</h4>
+        <p>Digital financing for essential agricultural inputs, including seeds, fertilizer, pesticides, and diesel, disbursed directly through a network of verified merchants.</p>
+      </div>
+      <div class="product">
+        <span class="n">3</span>
+        <h4>Livestock Finance</h4>
+        <p>Small-ticket livestock financing bundled with appropriate insurance coverage to reduce both farmer and lender risk.</p>
+      </div>
+      <div class="product">
+        <span class="n">4</span>
+        <h4>Post-Harvest Finance</h4>
+        <p>Short-term financing against stored agricultural produce, supported by warehouse receipts, enabling farmers to delay sales until market conditions improve.</p>
+      </div>
+      <div class="product">
+        <span class="n">5</span>
+        <h4>Value-Chain Finance</h4>
+        <p>An integrated financing model connecting farmers, aggregators, buyers, input suppliers, merchants, and the bank, allowing financing to flow across the agricultural value chain.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>Agricultural Lending in Pakistan · figures in PKR billions unless stated · nominal values · source: bank-wise agricultural finance and provincial agriculture data processed in Agri-data_preprocessing.ipynb
+    <div class="prepared">Prepared by: Zujaja Khatri – Data and Research Analyst</div>
+  </footer>
+</div>
+</body>
+</html>
